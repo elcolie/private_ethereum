@@ -1,0 +1,5 @@
+.idea
+keystore
+geth
+*.json
+password.txt

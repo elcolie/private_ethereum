@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:palm_web/screens/finish_signup.dart';
 import 'package:palm_web/screens/signup.dart';
 
 void main() {
@@ -10,6 +11,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SignupScreen();
+    return MaterialApp(
+      title: 'Routes',
+      initialRoute: '/',
+      routes: {
+        SignupScreen.routeName: (context) => const SignupScreen(),
+        FinishSignupScreen.routeName: (context) => const FinishSignupScreen(),
+      }
+    );
   }
 }

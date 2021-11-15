@@ -5,13 +5,6 @@ volumes:
   local_postgres_data_backups: {}
 
 services:
-#  ethereum:
-#    image: ethereum/client-go:stable
-#    volumes:
-#      - .ethereum_root:/root/.ethereum:z
-#    ports:
-#      - "30303:30303"
-#      - "8545:8545"
 
   django: &django
     build:
@@ -19,6 +12,7 @@ services:
       dockerfile: ./compose/local/django/Dockerfile
     image: palmy_cutie_ieie_local_django
     container_name: django
+    network_mode: host
     depends_on:
       - postgres
       - mailhog

@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:palm_web/backend_requests/signup.dart';
 
+import 'finish_signup.dart';
+
 class SignupScreen extends StatefulWidget {
+  static const String routeName = '/';
   const SignupScreen({Key? key}) : super(key: key);
 
   @override
@@ -101,9 +104,12 @@ class _SignupScreenState extends State<SignupScreen> {
                     };
                     http.Response response = await postSignup(payload);
                     print(response.statusCode);
+                    if(response.statusCode == 201){
+                      Navigator.pushNamed(context, FinishSignupScreen.routeName);
+                    }
                   },
                   child: Text('submit'),
-                )
+                ),
               ],
             ),
           ),

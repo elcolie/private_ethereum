@@ -77,7 +77,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "palmy_cutie_ieie.users.apps.UsersConfig",
-    # Your stuff: custom apps go here
+    "palmy_cutie_ieie.profiles",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

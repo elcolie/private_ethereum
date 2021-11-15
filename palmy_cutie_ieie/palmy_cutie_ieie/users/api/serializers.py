@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
+from palmy_cutie_ieie.profiles.models import Profile
+
 User = get_user_model()
 
 
@@ -37,4 +39,12 @@ class UserSignupSerializer(serializers.ModelSerializer):
         user.is_superuser = False
         user.is_staff = False
         user.save()
+        from web3 import Web3, HTTPProvider
+        w3 = Web3(Web3.HTTPProvider('localhost:8545'))
+        w3.isConnected()
+        _address = w3.geth.personal.new_account(validated_data['password'])
+        Profile.objects.create(
+            user=user,
+            address=_address
+        )
         return user

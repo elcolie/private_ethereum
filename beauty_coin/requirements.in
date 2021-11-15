@@ -1,0 +1,7 @@
+django
+djangorestframework
+markdown
+django-filter
+django-extensions
+Werkzeug
+pyOpenSSL

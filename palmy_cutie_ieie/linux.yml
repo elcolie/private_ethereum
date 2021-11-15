@@ -12,7 +12,6 @@ services:
       dockerfile: ./compose/local/django/Dockerfile
     image: palmy_cutie_ieie_local_django
     container_name: django
-    network_mode: host
     depends_on:
       - postgres
       - mailhog

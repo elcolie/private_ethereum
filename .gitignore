@@ -3,3 +3,5 @@ keystore
 geth
 *.json
 password.txt
+*.pyc
+*.sqlite3

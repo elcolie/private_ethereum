@@ -15,8 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.authtoken.views import obtain_auth_token
+from profiles.api.fbvs import welcome, get_balance, send_transaction
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('beauty_coin.api_routers'))
+    path('api/', include('beauty_coin.api_routers')),
+    path("auth-token/", obtain_auth_token),
+    path('welcome/', welcome),
+    path('balance/', get_balance),
+    path('send-transaction/', send_transaction)
 ]

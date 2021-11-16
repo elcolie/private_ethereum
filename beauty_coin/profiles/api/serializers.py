@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
 
 from profiles.models import Profile
 
@@ -36,3 +37,21 @@ class UserSignupSerializer(serializers.ModelSerializer):
             address=_address
         )
         return user
+
+
+class SendTransactionSerializer(serializers.Serializer):
+    to = serializers.CharField()
+    value = serializers.IntegerField()
+    password = serializers.CharField()
+
+    class Meta:
+        fields = [
+            'to',
+            'value',
+            'password',
+        ]
+
+    def validate_to(self, data):
+        if Profile.objects.filter(address=data).exists():
+            return data
+        raise ValidationError('Not a valid address')

@@ -4,7 +4,9 @@ from profiles.models import Profile
 
 
 class ProfileAdmin(admin.ModelAdmin):
-    pass
+    __basic_fields = ['id', 'user', 'address']
+    list_display = __basic_fields
+    list_display_links = __basic_fields
 
 
 admin.site.register(Profile, ProfileAdmin)

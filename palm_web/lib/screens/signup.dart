@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:palm_web/backend_requests/signup.dart';
 
+import 'error_screen.dart';
 import 'finish_signup.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -14,22 +15,18 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
   String _username = '';
-  String _name = '';
   String _email = '';
   String _password = '';
   String _confirmPassword = '';
-  bool _validatePassword = false;
 
   @override
   void dispose() {
     _usernameController.dispose();
-    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
@@ -69,15 +66,6 @@ class _SignupScreenState extends State<SignupScreen> {
                 TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'name',
-                  ),
-                  onChanged: (String name) {
-                    _name = name;
-                  },
-                ),
-                TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
                     labelText: 'email',
                   ),
                   onChanged: (String email) {
@@ -98,7 +86,6 @@ class _SignupScreenState extends State<SignupScreen> {
                   onPressed: () async {
                     Map<String, String> payload = {
                       'username': _username,
-                      'name': _name,
                       'email': _email,
                       'password': _password,
                     };
@@ -106,6 +93,8 @@ class _SignupScreenState extends State<SignupScreen> {
                     print(response.statusCode);
                     if(response.statusCode == 201){
                       Navigator.pushNamed(context, FinishSignupScreen.routeName);
+                    }else{
+                      Navigator.pushNamed(context, ErrorScreen.routeName);
                     }
                   },
                   child: Text('submit'),

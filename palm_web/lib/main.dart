@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:palm_web/screens/error_screen.dart';
 import 'package:palm_web/screens/finish_signup.dart';
 import 'package:palm_web/screens/signup.dart';
 
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       routes: {
         SignupScreen.routeName: (context) => const SignupScreen(),
         FinishSignupScreen.routeName: (context) => const FinishSignupScreen(),
+        ErrorScreen.routeName: (context) => const ErrorScreen(),
       }
     );
   }

@@ -1,24 +1,22 @@
-import 'dart:convert';
-
 import 'package:http/http.dart' as http;
+
+import 'dart:convert';
 
 import '../constants.dart';
 
-Future<http.Response> postSignup (Map<String, String> input) async {
+Future<http.Response> sendReqLogin(String _username, String _password) async {
+  //Send login request to get a token.
   var headers = {
     'Content-Type': 'application/json'
   };
-  var request = http.Request('POST', Uri.parse(backendUrl + '/api/signup/'));
+  var request = http.Request('POST', Uri.parse(backendUrl + '/auth-token/'));
   request.body = json.encode({
-    "username": input['username'],
-    "email": input['email'],
-    "name": input['name'],
-    "password": input['password']
+    "username": _username,
+    "password": _password
   });
   request.headers.addAll(headers);
 
   http.StreamedResponse response = await request.send();
   var resp = await http.Response.fromStream(response);
   return resp;
-
 }

@@ -12,7 +12,7 @@ class ErrorScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Unable to register your account"),
+              Text("Unable to process your request"),
               SizedBox(height: 10.0,),
               Text("Please contact engineer 083 932 0427"),
             ],

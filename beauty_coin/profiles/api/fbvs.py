@@ -67,11 +67,13 @@ def send_transaction(request):
             serializer.validated_data['password'],
             3000,
         )
-        import ipdb; ipdb.set_trace()
-        w3.eth.send_transaction({
+        transaction = w3.eth.send_transaction({
             'to': serializer.validated_data['to'],
             'from': token.user.profile.address,
             'value': serializer.validated_data['value'],
         })
         w3.geth.personal.lock_account(token.user.profile.address)
+        return Response(data={
+            'message': str(transaction),
+        }, status=status.HTTP_201_CREATED)
     return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)

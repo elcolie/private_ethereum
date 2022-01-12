@@ -13,41 +13,46 @@ class _PayScreenState extends State<PayScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-      body: Center(
-        child: Container(
-          width: 400,
-          height: 400,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text('Make Transaction'),
-              SizedBox(height: 20.0,),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'To',
+      home: Scaffold(
+        body: Center(
+          child: Container(
+            width: 400,
+            height: 400,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text('Make Transaction'),
+                SizedBox(
+                  height: 20.0,
                 ),
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Value in ETH',
+                TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'To',
+                  ),
                 ),
-              ),
-              TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Password',
+                TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Value in ETH',
+                  ),
                 ),
-              ),
-              SizedBox(height: 20.0,),
-              TextButton(onPressed: (){}, child: Text('Submit'))
-            ],
+                TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Password',
+                  ),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                TextButton(onPressed: () {}, child: Text('Submit'))
+              ],
+            ),
           ),
         ),
       ),
-    ));
+    );
   }
 }

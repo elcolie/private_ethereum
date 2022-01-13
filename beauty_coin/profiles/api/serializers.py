@@ -52,6 +52,6 @@ class SendTransactionSerializer(serializers.Serializer):
         ]
 
     def validate_to(self, data):
-        if Profile.objects.filter(address=data).exists():
+        if Profile.objects.filter(address=data.lower()).exists():
             return data
         raise ValidationError('Not a valid address')

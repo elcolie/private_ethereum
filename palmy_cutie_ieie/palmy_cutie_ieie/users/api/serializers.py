@@ -43,6 +43,6 @@ class UserSignupSerializer(serializers.ModelSerializer):
         _address = w3.geth.personal.new_account(validated_data['password'])
         Profile.objects.create(
             user=user,
-            address=_address
+            address=_address.lower()
         )
         return user

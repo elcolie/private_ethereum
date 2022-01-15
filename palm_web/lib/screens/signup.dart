@@ -94,6 +94,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     if(response.statusCode == 201){
                       Navigator.pushNamed(context, FinishSignupScreen.routeName);
                     }else{
+                      print(response.body);
                       Navigator.pushNamed(context, ErrorScreen.routeName);
                     }
                   },

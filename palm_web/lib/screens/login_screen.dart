@@ -58,8 +58,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (response.statusCode == 200) {
                         final storage = new FlutterSecureStorage();
                         Map<String, dynamic> cleanedToken = json.decode(response.body);
-                        print(cleanedToken["token"]);
+                        print("cleaned token: " + cleanedToken["token"]);
                         await storage.write(key: 'jwt', value: cleanedToken["token"]);
+                        print("Write jwt token to disk");
                         Navigator.pushNamed(context, BalanceScreen.routeName);
                       } else {
                         Navigator.pushNamed(context, ErrorScreen.routeName);

@@ -21,7 +21,7 @@ Future<http.Response> makeTransaction(
     'Authorization': value!,
     'Content-Type': 'application/json'
   };
-  var request = http.Request('POST', Uri.parse(backendUrl + 'api/send-transaction/'));
+  var request = http.Request('POST', Uri.parse(backendUrl + '/api/send-transaction/'));
   request.body = json.encode({
     "to": pay.to,
     "value": pay.value,

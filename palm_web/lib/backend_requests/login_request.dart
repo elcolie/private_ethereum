@@ -9,7 +9,7 @@ Future<http.Response> sendReqLogin(String _username, String _password) async {
   var headers = {
     'Content-Type': 'application/json'
   };
-  var request = http.Request('POST', Uri.parse(backendUrl + 'api/auth-token/'));
+  var request = http.Request('POST', Uri.parse(backendUrl + '/api/auth-token/'));
   request.body = json.encode({
     "username": _username,
     "password": _password

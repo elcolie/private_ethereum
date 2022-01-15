@@ -1,0 +1,7 @@
+node-0-frontend.t3nx.net {
+    reverse_proxy localhost:8080
+}
+
+node-0-backend.t3nx.net {
+    reverse_proxy localhost:5000
+}

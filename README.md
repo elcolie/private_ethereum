@@ -11,3 +11,8 @@
 6. beauty_coin runs `python manage.py runserver 0.0.0.0:8000` or `gunicorn beauty_coin.wsgi --bind 0.0.0.0:8000 --chdir=beauty_coin`
 
 https://youtu.be/O4-tcPI1xp0
+
+## Deploy with Caddy
+1. Configure DNS for frontend and backend
+2. Follow https://websiteforstudents.com/how-to-install-caddy-in-ubuntu/
+3. Use `Caddyfile`

@@ -1,0 +1,21 @@
+node-0-fronted.t3nx.net {
+    proxy / localhost:8080 {
+        header_upstream Host {host}
+        header_upstream X-Real-IP {remote}
+        header_upstream X-Forwarded-Proto {scheme}
+    }
+    log stdout
+    errors stdout
+    gzip
+}
+
+node-0-backend.t3nx.net {
+    proxy / localhost:5000 {
+        header_upstream Host {host}
+        header_upstream X-Real-IP {remote}
+        header_upstream X-Forwarded-Proto {scheme}
+    }
+    log stdout
+    errors stdout
+    gzip
+}

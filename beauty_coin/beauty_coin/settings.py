@@ -54,6 +54,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+CORS_ALLOWED_ORIGINS = [
+    "node-0-frontend.t3nx.net",
+]
 
 ROOT_URLCONF = 'beauty_coin.urls'
 

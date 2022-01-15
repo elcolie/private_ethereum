@@ -1,4 +1,4 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../constants.dart';
@@ -14,8 +14,8 @@ class Pay{
 Future<http.Response> makeTransaction(
   Pay pay
 ) async{
-  const storage = FlutterSecureStorage();
-  String? value = await storage.read(key: "jwt");
+  final prefs = await SharedPreferences.getInstance();
+  String? value = prefs.getString('jwt');
 
   var headers = {
     'Authorization': value!,

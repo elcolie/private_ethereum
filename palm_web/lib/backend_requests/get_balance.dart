@@ -1,12 +1,11 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../constants.dart';
 
 
 Future<http.Response> getBalance() async{
-  final storage = new FlutterSecureStorage();
-  String? value = await storage.read(key: "jwt");
-
+  final prefs = await SharedPreferences.getInstance();
+  String? value = prefs.getString('jwt');
   var headers = {
     'Authorization': value!
   };

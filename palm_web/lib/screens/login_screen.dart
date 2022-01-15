@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:palm_web/backend_requests/login_request.dart';
 import 'package:palm_web/screens/balance_screen.dart';
 import 'package:palm_web/screens/error_screen.dart';
@@ -56,10 +56,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       http.Response response =
                           await sendReqLogin(_username, _password);
                       if (response.statusCode == 200) {
-                        final storage = new FlutterSecureStorage();
+                        final prefs = await SharedPreferences.getInstance();
                         Map<String, dynamic> cleanedToken = json.decode(response.body);
                         print("cleaned token: " + cleanedToken["token"]);
-                        await storage.write(key: 'jwt', value: cleanedToken["token"]);
+                        prefs.setString('jwt', cleanedToken["token"]);
                         print("Write jwt token to disk");
                         Navigator.pushNamed(context, BalanceScreen.routeName);
                       } else {

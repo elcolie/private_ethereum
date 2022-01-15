@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:palm_web/screens/greeting.dart';
 import 'dart:convert';
 import 'package:palm_web/screens/payscreen.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // Create storage
 import '../backend_requests/get_balance.dart';
@@ -40,10 +40,14 @@ class _BalanceScreenState extends State<BalanceScreen> {
     });
   }
 
+  void logout()async{
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove('jwt');
+  }
 
   @override
   Widget build(BuildContext context) {
-    final storage = new FlutterSecureStorage();
+
     return MaterialApp(
       home: Scaffold(
         body: Center(
@@ -56,7 +60,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
                 Navigator.pushNamed(context, PayScreen.routeName);
               }, child: Text("Make Payment")),
               TextButton(onPressed: () async {
-                await storage.delete(key: "jwt");
+                logout();
                 Navigator.pushNamed(context, GreetingScreen.routeName);
               }, child: Text("Log out")),
             ],

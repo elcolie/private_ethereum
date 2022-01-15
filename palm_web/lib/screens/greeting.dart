@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:palm_web/screens/balance_screen.dart';
 import 'package:palm_web/screens/signup.dart';
 
@@ -11,8 +11,8 @@ class GreetingScreen extends StatelessWidget {
   const GreetingScreen({Key? key}) : super(key: key);
 
   void checkToken(BuildContext context) async {
-    const storage = FlutterSecureStorage();
-    String? value = await storage.read(key: "jwt");
+    final prefs = await SharedPreferences.getInstance();
+    String? value = prefs.getString('jwt');
     if (value == null) {
       print("token is empty");
     } else {

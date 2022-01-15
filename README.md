@@ -9,3 +9,5 @@
 4. `cd build`
 5. `http-server web/ -S -C cert.pem`
 6. beauty_coin runs `python manage.py runserver 0.0.0.0:8000`
+
+https://youtu.be/O4-tcPI1xp0

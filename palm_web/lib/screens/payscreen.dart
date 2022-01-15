@@ -48,7 +48,10 @@ class _PayScreenState extends State<PayScreen> {
                     labelText: 'Value in ETH',
                   ),
                   onChanged: (__value){
-                    _value = int.parse(__value);
+                    print("__value ETH: $__value");
+                    double doubleTypeValue = double.parse(__value) * 1000000000000000000;
+                    _value = doubleTypeValue.toInt();
+                    print("Wei: ${_value}");
                   },
                 ),
                 TextField(
@@ -69,10 +72,9 @@ class _PayScreenState extends State<PayScreen> {
                     _to, _value, _password
                   );
                   http.Response response = await makeTransaction(sendTransaction);
+                  print(response.body);
                   if(response.statusCode == 201){
                     Navigator.pushNamed(context, BalanceScreen.routeName);
-                  }else{
-                    print(response.body);
                   }
                 }, child: Text('Submit'))
               ],

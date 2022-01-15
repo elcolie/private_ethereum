@@ -21,8 +21,8 @@ from profiles.api.fbvs import welcome, get_balance, send_transaction
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('beauty_coin.api_routers')),
-    path("auth-token/", obtain_auth_token),
-    path('welcome/', welcome),
-    path('balance/', get_balance),
-    path('send-transaction/', send_transaction)
+    path('api/auth-token/', obtain_auth_token),
+    path('api/welcome/', welcome),
+    path('api/balance/', get_balance),
+    path('api/send-transaction/', send_transaction)
 ]

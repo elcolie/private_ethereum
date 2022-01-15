@@ -10,7 +10,7 @@ Future<http.Response> getBalance() async{
     'Authorization': value!
   };
   print(headers);
-  var request = http.Request('GET', Uri.parse(backendUrl + '/balance/'));
+  var request = http.Request('GET', Uri.parse(backendUrl + 'api/balance/'));
 
   request.headers.addAll(headers);
 

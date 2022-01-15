@@ -1,4 +1,4 @@
-node-0-fronted.t3nx.net {
+node-0-frontend.t3nx.net {
     proxy / localhost:8080 {
         header_upstream Host {host}
         header_upstream X-Real-IP {remote}

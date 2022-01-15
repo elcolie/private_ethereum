@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:palm_web/screens/greeting.dart';
 import 'dart:convert';
 import 'package:palm_web/screens/payscreen.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+// Create storage
 import '../backend_requests/get_balance.dart';
 
 class BalanceScreen extends StatefulWidget {
@@ -40,6 +43,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final storage = new FlutterSecureStorage();
     return MaterialApp(
       home: Scaffold(
         body: Center(
@@ -51,6 +55,10 @@ class _BalanceScreenState extends State<BalanceScreen> {
               TextButton(onPressed: (){
                 Navigator.pushNamed(context, PayScreen.routeName);
               }, child: Text("Make Payment")),
+              TextButton(onPressed: () async {
+                await storage.delete(key: "jwt");
+                Navigator.pushNamed(context, GreetingScreen.routeName);
+              }, child: Text("Log out")),
             ],
           ),
         ),

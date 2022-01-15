@@ -57,6 +57,9 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "node-0-frontend.t3nx.net",
 ]
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = False
+
 
 ROOT_URLCONF = 'beauty_coin.urls'
 

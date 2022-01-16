@@ -57,6 +57,8 @@ def get_balance(request):
 
 @api_view(('POST',))
 @renderer_classes((JSONRenderer,))
+@authentication_classes(())
+@permission_classes(())
 def send_transaction(request):
     """Send transaction to private Ethereum."""
     token = retrieve_token(request)

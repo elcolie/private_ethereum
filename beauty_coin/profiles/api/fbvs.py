@@ -8,6 +8,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from web3 import Web3, HTTPProvider
 
+from payment_transactions.models import PaymentTransaction
 from profiles.api.serializers import SendTransactionSerializer
 
 logger = logging.getLogger('django')
@@ -65,7 +66,7 @@ def send_transaction(request):
     serializer = SendTransactionSerializer(data=request.data)
     if serializer.is_valid():
         # Check send to sender itself is not allowed
-        if (token.user.profile.address == request.data['to']):
+        if token.user.profile.address == request.data['to']:
             return Response(data={
                 'message': "Unable to send to same address"
             }, status=status.HTTP_400_BAD_REQUEST)
@@ -73,6 +74,7 @@ def send_transaction(request):
         w3 = Web3(HTTPProvider('http://localhost:8545'))  # web3 must be called locally
         to_address = w3.toChecksumAddress(serializer.validated_data['to'])
         from_address = w3.toChecksumAddress(token.user.profile.address)
+        value = serializer.validated_data['value']
         w3.geth.personal.unlock_account(
             from_address,
             serializer.validated_data['password'],
@@ -82,14 +84,18 @@ def send_transaction(request):
             transaction = w3.eth.send_transaction({
                 'to': to_address,
                 'from': from_address,
-                'value': serializer.validated_data['value'],
+                'value': value,
             })
         except ValueError as err:
             # Have 0 want 10000
             return Response(data=err.args[0], status=status.HTTP_403_FORBIDDEN)
-
         w3.geth.personal.lock_account(from_address)
-        return Response(data={
-            'message': transaction.hex(),
-        }, status=status.HTTP_201_CREATED)
+        kwargs = {
+            'from_address': from_address,
+            'to_address': to_address,
+            'value': value,
+            'transaction_number': transaction.hex(),
+        }
+        _ = PaymentTransaction.objects.create(**kwargs)
+        return Response(data=kwargs, status=status.HTTP_201_CREATED)
     return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)

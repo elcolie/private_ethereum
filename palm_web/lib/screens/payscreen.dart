@@ -76,7 +76,7 @@ class _PayScreenState extends State<PayScreen> {
                   print("response.body: ${response.body}");
                   if(response.statusCode == 201){
                     final Map<String, dynamic> message = json.decode(response.body);
-                    final transactionNumber = message['message'];
+                    final transactionNumber = message['transaction_number'];
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {

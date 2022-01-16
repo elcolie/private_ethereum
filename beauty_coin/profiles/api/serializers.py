@@ -1,9 +1,11 @@
+import logging
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from profiles.models import Profile
 
+logger = logging.getLogger('django')
 User = get_user_model()
 
 
@@ -29,14 +31,19 @@ class UserSignupSerializer(serializers.ModelSerializer):
         user.is_staff = False
         user.save()
         from web3 import Web3, HTTPProvider
-        w3 = Web3(HTTPProvider('http://localhost:8545'))  # web3 must be called locally
-        w3.isConnected()
-        _address = w3.geth.personal.new_account(validated_data['password'])
-        Profile.objects.create(
-            user=user,
-            address=_address.lower()
-        )
-        return user
+        try:
+            w3 = Web3(HTTPProvider('http://localhost:8545'))  # web3 must be called locally
+            w3.isConnected()
+            _address = w3.geth.personal.new_account(validated_data['password'])
+        except Exception as err:
+            logger.info(err)
+            user.delete()
+        else:
+            Profile.objects.create(
+                user=user,
+                address=_address.lower()
+            )
+            return user
 
 
 class SendTransactionSerializer(serializers.Serializer):

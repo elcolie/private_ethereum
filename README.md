@@ -8,7 +8,7 @@
 3. `flutter build web`
 4. `cd build`
 5. `http-server web/ -S -C cert.pem`
-6. beauty_coin runs `python manage.py runserver 0.0.0.0:8000` or `gunicorn beauty_coin.wsgi --bind 0.0.0.0:8000 --chdir=beauty_coin`
+6. beauty_coin runs `python manage.py runserver 0.0.0.0:8000` or `gunicorn beauty_coin.wsgi --bind 0.0.0.0:5000 --chdir=beauty_coin`
 
 https://youtu.be/O4-tcPI1xp0
 

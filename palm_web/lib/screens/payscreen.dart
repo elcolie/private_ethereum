@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 import '../backend_requests/make_transaction.dart';
 import 'balance_screen.dart';
 
@@ -72,9 +73,45 @@ class _PayScreenState extends State<PayScreen> {
                     _to, _value, _password
                   );
                   http.Response response = await makeTransaction(sendTransaction);
-                  print(response.body);
+                  print("response.body: ${response.body}");
                   if(response.statusCode == 201){
-                    Navigator.pushNamed(context, BalanceScreen.routeName);
+                    final Map<String, dynamic> message = json.decode(response.body);
+                    final transactionNumber = message['message'];
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: new Text("Alert!!"),
+                          content: new Text("Your transaction number is ${transactionNumber}"),
+                          actions: <Widget>[
+                            new TextButton(
+                              child: new Text("OK"),
+                              onPressed: () {
+                                Navigator.pushNamed(context, BalanceScreen.routeName);;
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }else{
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: new Text("Alert!!"),
+                          content: new Text("${response.body}"),
+                          actions: <Widget>[
+                            new TextButton(
+                              child: new Text("OK"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   }
                 }, child: Text('Submit'))
               ],

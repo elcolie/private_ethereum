@@ -2,7 +2,7 @@
     debug
 }
 node-0.t3nx.net {
-    reverse_proxy / localhost:8080
+    reverse_proxy /* localhost:8080
     reverse_proxy /api/* localhost:5000
     reverse_proxy /admin/* localhost:5000
 }

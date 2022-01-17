@@ -7,7 +7,7 @@
 2. cd `palm_web`
 3. `flutter build web`
 4. `cd build`
-5. `http-server web/ -S -C cert.pem`
+5. `http-server web/ -S -C cert.pem` or  `python -m http.server 8080` in `build/web` directory
 6. beauty_coin runs `python manage.py runserver 0.0.0.0:8000` or `gunicorn beauty_coin.wsgi --bind 0.0.0.0:5000 --chdir=beauty_coin --reload`
 
 https://youtu.be/O4-tcPI1xp0

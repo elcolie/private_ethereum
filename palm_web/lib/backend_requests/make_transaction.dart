@@ -6,7 +6,7 @@ import '../constants.dart';
 
 class Pay{
   String to = '';
-  int value = 0;
+  double value = 0.0;
   String password = '';
   Pay(this.to, this.value, this.password);
 }

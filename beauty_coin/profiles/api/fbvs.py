@@ -93,7 +93,7 @@ def send_transaction(request):
         kwargs = {
             'from_address': from_address,
             'to_address': to_address,
-            'value': value,
+            'value': str(value),
             'transaction_number': transaction.hex(),
         }
         _ = PaymentTransaction.objects.create(**kwargs)

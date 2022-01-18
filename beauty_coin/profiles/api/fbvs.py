@@ -75,14 +75,15 @@ def send_transaction(request):
         to_address = w3.toChecksumAddress(serializer.validated_data['to'])
         from_address = w3.toChecksumAddress(token.user.profile.address)
         # value = '%.0f' % (serializer.validated_data['value'] * 1000000000000000000)
-        value = serializer.validated_data['value'] * 1000000000000000000
+        logger.info(f"serializer.validated_data['value']: {serializer.validated_data['value']}")
+        value = int(serializer.validated_data['value'] * 1000000000000000000)
         logger.info(f"Wei: {value}")
-        w3.geth.personal.unlock_account(
-            from_address,
-            serializer.validated_data['password'],
-            3000,
-        )
         try:
+            w3.geth.personal.unlock_account(
+                from_address,
+                serializer.validated_data['password'],
+                3000,
+            )
             transaction = w3.eth.send_transaction({
                 'to': to_address,
                 'from': from_address,

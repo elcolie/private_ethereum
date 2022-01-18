@@ -19,8 +19,8 @@ def register_user(username: str, address: str) -> None:
 class CoinTransaction(TestCase):
 
     def setUp(self) -> None:
-        self.foggy = register_user('foggy', '0xa456c84CC005100B277D4637896456F99a59A290')
-        self.sarit = register_user('sarit', '0xB795518Ee574c2a55B513D2C1319e8e6e40F6c04')
+        self.foggy = register_user('foggy', '0xa456c84CC005100B277D4637896456F99a59A290'.lower())
+        self.sarit = register_user('sarit', '0xB795518Ee574c2a55B513D2C1319e8e6e40F6c04'.lower())
 
     def test_serializer_wrong_address(self) -> None:
         data = {
@@ -39,6 +39,15 @@ class CoinTransaction(TestCase):
         data = {
             'to': self.sarit.profile.address,
             'value': 1,
+            'password': 'somepassword',
+        }
+        serializer = SendTransactionSerializer(data=data)
+        self.assertTrue(serializer.is_valid())
+
+    def test_serializer_non_integer_amount(self) -> None:
+        data = {
+            'to': self.sarit.profile.address,
+            'value': 0.5,
             'password': 'somepassword',
         }
         serializer = SendTransactionSerializer(data=data)

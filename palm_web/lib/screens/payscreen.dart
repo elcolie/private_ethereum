@@ -15,7 +15,7 @@ class PayScreen extends StatefulWidget {
 
 class _PayScreenState extends State<PayScreen> {
   String _to = '';
-  int _value = 0;
+  double _value = 0.0;
   String _password = '';
 
   @override
@@ -51,7 +51,7 @@ class _PayScreenState extends State<PayScreen> {
                   onChanged: (__value){
                     print("__value ETH: $__value");
                     double doubleTypeValue = double.parse(__value);
-                    _value = doubleTypeValue.toInt();
+                    _value = doubleTypeValue;
                     print("ETH: ${_value}");
                   },
                 ),

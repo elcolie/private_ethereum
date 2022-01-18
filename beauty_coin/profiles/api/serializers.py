@@ -48,7 +48,7 @@ class UserSignupSerializer(serializers.ModelSerializer):
 
 class SendTransactionSerializer(serializers.Serializer):
     to = serializers.CharField()
-    value = serializers.IntegerField()
+    value = serializers.FloatField()
     password = serializers.CharField()
 
     class Meta:

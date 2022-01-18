@@ -50,9 +50,9 @@ class _PayScreenState extends State<PayScreen> {
                   ),
                   onChanged: (__value){
                     print("__value ETH: $__value");
-                    double doubleTypeValue = double.parse(__value) * 1000000000000000000;
+                    double doubleTypeValue = double.parse(__value);
                     _value = doubleTypeValue.toInt();
-                    print("Wei: ${_value}");
+                    print("ETH: ${_value}");
                   },
                 ),
                 TextField(

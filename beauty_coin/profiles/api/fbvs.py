@@ -74,7 +74,9 @@ def send_transaction(request):
         w3 = Web3(HTTPProvider('http://localhost:8545'))  # web3 must be called locally
         to_address = w3.toChecksumAddress(serializer.validated_data['to'])
         from_address = w3.toChecksumAddress(token.user.profile.address)
-        value = serializer.validated_data['value']
+        # value = '%.0f' % (serializer.validated_data['value'] * 1000000000000000000)
+        value = serializer.validated_data['value'] * 1000000000000000000
+        logger.info(f"Wei: {value}")
         w3.geth.personal.unlock_account(
             from_address,
             serializer.validated_data['password'],
@@ -96,6 +98,7 @@ def send_transaction(request):
             'value': str(value),
             'transaction_number': transaction.hex(),
         }
+        logger.info(kwargs)
         _ = PaymentTransaction.objects.create(**kwargs)
         return Response(data=kwargs, status=status.HTTP_201_CREATED)
     return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)

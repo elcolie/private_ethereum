@@ -18,6 +18,7 @@ class BalanceScreen extends StatefulWidget {
 
 class _BalanceScreenState extends State<BalanceScreen> {
   String balanceDisplay = '';
+  String addressDisplay = '';
 
   void initState(){
     requestBalance();
@@ -26,10 +27,12 @@ class _BalanceScreenState extends State<BalanceScreen> {
 
   void requestBalance() async {
     var textDisplay = '';
+    var address = '';
     http.Response response = await getBalance();
     if(response.statusCode == 200){
       Map<String, dynamic> payload = json.decode(response.body);
-      textDisplay = "Balance is : ${payload['balance']}";
+      textDisplay = "Balance is : ${payload['balance'].toStringAsFixed(2)}";
+      address = payload['address'];
     }else{
       //Show error text in the screen.
       textDisplay = "Please login again to renew token";
@@ -37,6 +40,7 @@ class _BalanceScreenState extends State<BalanceScreen> {
     setState(() {
       print(textDisplay);
       balanceDisplay = textDisplay;
+      addressDisplay = address;
     });
   }
 
@@ -51,19 +55,31 @@ class _BalanceScreenState extends State<BalanceScreen> {
     return MaterialApp(
       home: Scaffold(
         body: Center(
-          child: Row(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("$balanceDisplay"),
-              SizedBox(width: 20,),
-              TextButton(onPressed: (){
-                Navigator.pushNamed(context, PayScreen.routeName);
-              }, child: Text("Make Payment")),
-              TextButton(onPressed: () async {
-                logout();
-                Navigator.pushNamed(context, GreetingScreen.routeName);
-              }, child: Text("Log out")),
-            ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Account'),
+                  SizedBox(width: 10,),
+                  SelectableText(addressDisplay),
+                ],
+              ),
+              Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("$balanceDisplay"),
+                SizedBox(width: 20,),
+                TextButton(onPressed: (){
+                  Navigator.pushNamed(context, PayScreen.routeName);
+                }, child: Text("Make Payment")),
+                TextButton(onPressed: () async {
+                  logout();
+                  Navigator.pushNamed(context, GreetingScreen.routeName);
+                }, child: Text("Log out")),
+              ],
+            )],
           ),
         ),
       )

@@ -53,6 +53,7 @@ def get_balance(request):
     logger.info(f"ETH: {balance_eth}")
     return Response(data={
         'balance': balance_eth,
+        'address': token.user.profile.address,
     }, status=status.HTTP_200_OK)
 
 
@@ -103,3 +104,12 @@ def send_transaction(request):
         _ = PaymentTransaction.objects.create(**kwargs)
         return Response(data=kwargs, status=status.HTTP_201_CREATED)
     return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(('GET',))
+@renderer_classes((JSONRenderer,))
+def my_address(request):
+    _ = retrieve_token(request)
+    return Response(data={
+        'address': request.user.profile.address,
+    }, status=status.HTTP_200_OK)

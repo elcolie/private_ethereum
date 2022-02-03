@@ -62,3 +62,10 @@ class SendTransactionSerializer(serializers.Serializer):
         if Profile.objects.filter(address=data.lower()).exists():
             return data
         raise ValidationError('Not a valid address')
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = [
+            'address',
+        ]

@@ -1,5 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
+from rest_framework import status
+from rest_framework.reverse import reverse
+from rest_framework.test import APIClient
 
 from profiles.api.serializers import SendTransactionSerializer
 from profiles.models import Profile
@@ -52,3 +55,17 @@ class CoinTransaction(TestCase):
         }
         serializer = SendTransactionSerializer(data=data)
         self.assertTrue(serializer.is_valid())
+
+    def test_see_account_address_authenticated_user(self) -> None:
+        client = APIClient()
+        client.force_authenticate(user=self.sarit)
+        url = reverse('my_address')
+        res = client.get(url)
+        self.assertEqual(status.HTTP_200_OK, res.status_code)
+        self.assertEqual({'address': '0xb795518ee574c2a55b513d2c1319e8e6e40f6c04'}, res.data)
+
+    def test_see_account_address_anonymous(self) -> None:
+        client = APIClient()
+        url = reverse('my_address')
+        res = client.get(url)
+        self.assertEqual('Authentication credentials were not provided.', str(res.data['detail']))

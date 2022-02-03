@@ -87,7 +87,7 @@ class _PayScreenState extends State<PayScreen> {
                             new TextButton(
                               child: new Text("OK"),
                               onPressed: () {
-                                Navigator.pushNamed(context, BalanceScreen.routeName);;
+                                Navigator.pushNamed(context, BalanceScreen.routeName);
                               },
                             ),
                           ],

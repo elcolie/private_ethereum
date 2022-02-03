@@ -16,13 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
-from profiles.api.fbvs import welcome, get_balance, send_transaction
+from profiles.api.fbvs import welcome, get_balance, send_transaction, my_address
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('beauty_coin.api_routers')),
     path('api/auth-token/', obtain_auth_token),
-    path('api/welcome/', welcome),
-    path('api/balance/', get_balance),
-    path('api/send-transaction/', send_transaction)
+    path('api/welcome/', welcome, name='welcome'),
+    path('api/balance/', get_balance, name='get_balance'),
+    path('api/send-transaction/', send_transaction, name='send_transaction'),
+    path('api/my-address/', my_address, name='my_address'),
 ]
